@@ -9,7 +9,7 @@ class PokemonPage extends React.Component {
   state = {
     pokemon: [],
     renderedPokemon: [],
-    searchInput: ""
+    searchInput: ''
   }
 
   componentDidMount(){
@@ -29,12 +29,41 @@ class PokemonPage extends React.Component {
 
 
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = (pokemonCollection) => {
+    //creating a fetch request to add a new pokemon to the collection of pokemon
+    fetch('http://localhost:3000/pokemon', this.postObjectFromPokemonCollection(pokemonCollection))
+    .then(response => response.json())
+    .then(this.addNewPokemonToCollection)
+  }
 
+  postObjectFromPokemonCollection = (collection) => {
+    return {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: collection.name,
+        hp: parseInt(collection.hp,10),
+        sprites: collection.sprites
+      })
+    }
+  }
+
+  addNewPokemonToCollection = (pokemonObj) => {
+    //receving pokemon object as json and adding the pokemon to the collection
+    this.setState({pokemon: [...this.state.pokemon, pokemonObj]})
+    if(this.state.searchInput === '') {
+     this.setState({ renderedPokemon: [...this.state.pokemon]})
+    }
+    else {
+      this.setState({renderedPokemon: [this.filterSearchByInput(this.state.searchInput)]})
+    }
   }
 
   filterSearchByInput = (input) => {
-    this.state.pokemon.filter(pokemon => pokemon.name.includes(input))
+    return this.state.pokemon.filter(pokemon => pokemon.name.includes(input))
   }
 
   handleSearchInput = (event) => {

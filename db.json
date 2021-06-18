@@ -1340,6 +1340,24 @@
         "front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
         "back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/150.png"
       }
+    },
+    {
+      "name": "latias",
+      "hp": 80,
+      "sprites": {
+        "front": "",
+        "back": ""
+      },
+      "id": 151
+    },
+    {
+      "name": "latias",
+      "hp": 80,
+      "sprites": {
+        "front": "",
+        "back": ""
+      },
+      "id": 152
     }
   ]
 }
